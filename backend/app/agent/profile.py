@@ -18,12 +18,16 @@ MODELS = [
     "gemini-3.6-flash-lite",
 ]
 
+SUPPORTED_SOURCES = {
+    "LinkedIn",
+    "Naukri",
+    "Indeed",
+    "GitHub",
+    "Portfolio",
+}
+
 
 def extract_json(text: str):
-    """
-    Extract JSON even if Gemini wraps it in markdown.
-    """
-
     text = text.strip()
 
     if text.startswith("```"):
@@ -40,22 +44,40 @@ def extract_json(text: str):
         raise ValueError("Gemini did not return valid JSON.")
 
 
-def analyze_profile(profile_url: str, profile_text: str):
+def analyze_profile(
+    profile_url: str,
+    profile_text: str,
+    source: str = "LinkedIn"
+):
+    """
+    Analyze a professional profile from a supported source.
+
+    The URL is treated as a source/reference.
+    The supplied profile_text is the actual information analyzed.
+    """
+
+    if source not in SUPPORTED_SOURCES:
+        source = "Portfolio"
 
     prompt = f"""
-You are a professional profile analysis assistant.
+You are a professional profile analysis assistant
+for a Social Media Engagement Agent.
 
-Analyze the following public professional profile information.
+The user has provided information from a professional
+profile or professional website.
+
+Profile source:
+{source}
 
 Profile URL:
 {profile_url}
 
-Profile content:
+Profile information:
 {profile_text}
 
-Extract useful information for a social media content agent.
+Analyze ONLY the information provided above.
 
-Return ONLY valid JSON in this exact structure:
+Return ONLY valid JSON using this exact structure:
 
 {{
     "name": "",
@@ -65,6 +87,7 @@ Return ONLY valid JSON in this exact structure:
     "experience": [],
     "education": [],
     "interests": [],
+    "projects": [],
     "content_topics": [],
     "writing_style": [],
     "target_audience": []
@@ -72,10 +95,14 @@ Return ONLY valid JSON in this exact structure:
 
 Rules:
 - Do not invent information.
-- Use empty arrays when information is unavailable.
-- Keep the extracted information concise.
-- Identify technical topics the person is likely to post about.
-- Infer writing style only from the supplied content.
+- Use empty strings or arrays when information is unavailable.
+- Keep extracted information concise.
+- Extract technical skills when explicitly mentioned.
+- Extract projects when explicitly mentioned.
+- Identify useful professional content topics.
+- Infer writing style only when enough text is available.
+- Do not claim that the profile was scraped.
+- Do not invent employment, education, skills, or achievements.
 """
 
     response = None
@@ -90,6 +117,7 @@ Rules:
             )
 
             if response and response.text:
+                print(f"Profile analyzed using: {model}")
                 break
 
         except Exception as e:
@@ -102,9 +130,15 @@ Rules:
 
     profile = extract_json(response.text)
 
-    # Store the complete profile as persistent Hindsight memory.
+    # ---------------------------------------------------------
+    # Store complete professional identity in Hindsight
+    # ---------------------------------------------------------
+
     memory = f"""
-SOCIAL MEMORY AGENT USER PROFILE
+SOCIAL MEMORY AGENT PROFESSIONAL PROFILE
+
+Profile Source:
+{source}
 
 Profile URL:
 {profile_url}
@@ -130,6 +164,9 @@ Education:
 Interests:
 {", ".join(profile.get("interests", []))}
 
+Projects:
+{json.dumps(profile.get("projects", []))}
+
 Content Topics:
 {", ".join(profile.get("content_topics", []))}
 
@@ -142,7 +179,22 @@ Target Audience:
 
     remember(memory)
 
-    # Store important individual preferences separately.
+    # Store important information as separate memories.
+    if profile.get("skills"):
+        remember(
+            "User professional skills: "
+            + ", ".join(profile["skills"])
+        )
+
+    if profile.get("projects"):
+        remember(
+            "User professional projects: "
+            + ", ".join(
+                str(project)
+                for project in profile["projects"]
+            )
+        )
+
     if profile.get("writing_style"):
         remember(
             "User writing style preferences: "
@@ -151,26 +203,38 @@ Target Audience:
 
     if profile.get("content_topics"):
         remember(
-            "User's preferred content topics: "
+            "User preferred professional content topics: "
             + ", ".join(profile["content_topics"])
         )
 
     if profile.get("target_audience"):
         remember(
-            "User's target audience: "
+            "User target audience: "
             + ", ".join(profile["target_audience"])
         )
+
+    # Remember the source as well.
+    remember(
+        f"Professional profile source: {source}. "
+        f"Profile URL: {profile_url}"
+    )
 
     return profile
 
 
 def get_profile():
+    """
+    Reconstruct the user's professional profile
+    from persistent Hindsight memory.
+    """
 
     memories = recall(
         """
         Find the user's professional profile.
 
         Look for:
+        - profile source
+        - profile URL
         - name
         - headline
         - about
@@ -178,6 +242,7 @@ def get_profile():
         - experience
         - education
         - interests
+        - projects
         - content topics
         - writing style
         - target audience
@@ -188,11 +253,13 @@ def get_profile():
         return None
 
     profile_memories = "\n".join(
-        memory.text for memory in memories
+        memory.text
+        for memory in memories
     )
 
     prompt = f"""
-Reconstruct the user's professional profile from these memories.
+Reconstruct the user's professional profile
+from these Hindsight memories.
 
 MEMORIES:
 {profile_memories}
@@ -207,20 +274,34 @@ Return ONLY valid JSON:
     "experience": [],
     "education": [],
     "interests": [],
+    "projects": [],
     "content_topics": [],
     "writing_style": [],
     "target_audience": []
 }}
 
-Do not invent information.
+Rules:
+- Use only information present in the memories.
+- Do not invent information.
+- Combine duplicate information where appropriate.
 """
 
-    response = client.models.generate_content(
-        model=MODELS[0],
-        contents=prompt
-    )
+    response = None
 
-    if not response or not response.text:
+    for model in MODELS:
+        try:
+            response = client.models.generate_content(
+                model=model,
+                contents=prompt
+            )
+
+            if response and response.text:
+                break
+
+        except Exception as e:
+            print(f"Profile reconstruction failed: {e}")
+
+    if response is None or not response.text:
         return None
 
     try:

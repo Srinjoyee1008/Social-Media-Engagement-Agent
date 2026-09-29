@@ -17,6 +17,7 @@ import {
   Zap,
   Link,
   UserCircle,
+  BookOpen,
 } from "lucide-react"
 
 function App() {
@@ -45,10 +46,19 @@ function App() {
   // -----------------------------------------
 
   const [profile, setProfile] = useState(null)
+  const [profileSource, setProfileSource] = useState("LinkedIn")
   const [profileUrl, setProfileUrl] = useState("")
   const [profileText, setProfileText] = useState("")
   const [profileLoading, setProfileLoading] = useState(false)
   const [profileMessage, setProfileMessage] = useState("")
+
+  // -----------------------------------------
+  // SMART RAG
+  // -----------------------------------------
+
+  const openSmartRAG = () => {
+    window.open("http://localhost:8501", "_blank", "noopener,noreferrer")
+  }
 
   // -----------------------------------------
   // LOAD MEMORIES FROM HINDSIGHT
@@ -116,7 +126,7 @@ function App() {
   const importProfile = async () => {
     if (!profileUrl.trim()) {
       setProfileMessage(
-        "Please enter your LinkedIn profile URL."
+        "Please enter your professional profile URL."
       )
       return
     }
@@ -140,6 +150,7 @@ function App() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            source: profileSource,
             profile_url: profileUrl,
             profile_text: profileText,
           }),
@@ -162,13 +173,12 @@ function App() {
 
       await loadMemories()
       await loadDashboard()
-
     } catch (error) {
       console.error("Profile import error:", error)
 
       setProfileMessage(
         error.message ||
-        "Unable to analyze the profile."
+          "Unable to analyze the profile."
       )
     } finally {
       setProfileLoading(false)
@@ -212,7 +222,6 @@ function App() {
 
       await loadMemories()
       await loadDashboard()
-
     } catch (error) {
       console.error("Generation error:", error)
 
@@ -287,7 +296,6 @@ function App() {
           </p>
         </div>
 
-
         {/* PROFILE IMPORT */}
 
         <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -315,15 +323,47 @@ function App() {
 
           </div>
 
-
           <div className="space-y-4">
 
             {/* LinkedIn URL */}
 
+            {/* Profile Source */}
+
             <div>
 
               <label className="mb-2 block text-sm font-semibold text-slate-700">
-                LinkedIn Profile URL
+                Professional Profile Source
+              </label>
+
+              <div className="relative">
+
+                <select
+                  value={profileSource}
+                  onChange={(e) => setProfileSource(e.target.value)}
+                  className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-50"
+                >
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Naukri">Naukri</option>
+                  <option value="Indeed">Indeed</option>
+                  <option value="GitHub">GitHub</option>
+                  <option value="Portfolio">Portfolio</option>
+                </select>
+
+                <ChevronDown
+                  size={16}
+                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+
+              </div>
+
+            </div>
+
+            {/* Profile URL */}
+
+            <div>
+
+              <label className="mb-2 block text-sm font-semibold text-slate-700">
+                Profile URL
               </label>
 
               <div className="relative">
@@ -347,7 +387,6 @@ function App() {
 
             </div>
 
-
             {/* Profile Text */}
 
             <div>
@@ -361,18 +400,16 @@ function App() {
                 onChange={(e) =>
                   setProfileText(e.target.value)
                 }
-                placeholder="Paste your public LinkedIn profile information here — About, Experience, Education, Skills, Projects, etc."
+                placeholder="Paste your public profile information, resume content, bio, skills, projects, or professional details..."
                 rows={7}
                 className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm leading-6 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-50"
               />
 
               <p className="mt-2 text-xs text-slate-400">
-                The agent will analyze this information and
-                convert it into persistent Hindsight memories.
+                The URL is used as a source reference. The information you provide is analyzed and converted into persistent Hindsight memories.
               </p>
 
             </div>
-
 
             {/* Import Button */}
 
@@ -405,7 +442,6 @@ function App() {
 
             </button>
 
-
             {/* Message */}
 
             {profileMessage && (
@@ -425,7 +461,6 @@ function App() {
           </div>
 
         </section>
-
 
         {/* PROFILE MEMORY */}
 
@@ -455,17 +490,22 @@ function App() {
 
               </div>
 
-
               <div className="rounded-full bg-emerald-50 px-3 py-1.5 text-xs font-semibold text-emerald-700">
                 Memory Active
               </div>
 
             </div>
 
-
             {/* Name + Headline */}
 
-            <div className="grid gap-4 md:grid-cols-2">
+            {profile?.source && (
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-violet-50 px-3 py-1.5 text-xs font-medium text-violet-700">
+              <Link size={13} />
+              Source: {profile.source}
+            </div>
+          )}
+
+          <div className="grid gap-4 md:grid-cols-2">
 
               <div className="rounded-xl bg-slate-50 p-4">
 
@@ -479,7 +519,6 @@ function App() {
 
               </div>
 
-
               <div className="rounded-xl bg-slate-50 p-4">
 
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-400">
@@ -491,7 +530,6 @@ function App() {
                 </p>
 
               </div>
-
 
               {/* About */}
 
@@ -506,7 +544,6 @@ function App() {
                 </p>
 
               </div>
-
 
               {/* Skills */}
 
@@ -536,7 +573,6 @@ function App() {
                 </div>
 
               </div>
-
 
               {/* Content Topics */}
 
@@ -569,7 +605,6 @@ function App() {
 
               </div>
 
-
               {/* Writing Style */}
 
               <div className="rounded-xl bg-slate-50 p-4">
@@ -600,7 +635,6 @@ function App() {
                 )}
 
               </div>
-
 
               {/* Target Audience */}
 
@@ -638,7 +672,6 @@ function App() {
           </section>
         )}
 
-
         {/* STATS */}
 
         <div className="grid gap-4 md:grid-cols-3">
@@ -674,7 +707,6 @@ function App() {
 
           </div>
 
-
           {/* Memory System */}
 
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -705,7 +737,6 @@ function App() {
             </p>
 
           </div>
-
 
           {/* Agent Status */}
 
@@ -740,7 +771,6 @@ function App() {
 
         </div>
 
-
         {/* HOW IT WORKS */}
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -756,7 +786,6 @@ function App() {
             </p>
 
           </div>
-
 
           <div className="grid gap-4 md:grid-cols-4">
 
@@ -777,7 +806,6 @@ function App() {
 
             </div>
 
-
             <div className="rounded-xl bg-slate-50 p-4">
 
               <Sparkles
@@ -795,7 +823,6 @@ function App() {
 
             </div>
 
-
             <div className="rounded-xl bg-slate-50 p-4">
 
               <Database
@@ -812,7 +839,6 @@ function App() {
               </p>
 
             </div>
-
 
             <div className="rounded-xl bg-slate-50 p-4">
 
@@ -871,7 +897,6 @@ function App() {
 
           </div>
 
-
           {/* Topic */}
 
           <label className="mb-2 block text-sm font-semibold">
@@ -884,7 +909,6 @@ function App() {
             placeholder="e.g. AI Agents, RAG, cybersecurity..."
             className="mb-5 min-h-32 w-full resize-none rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-50"
           />
-
 
           {/* Platform */}
 
@@ -910,7 +934,6 @@ function App() {
             />
 
           </div>
-
 
           {/* Generate */}
 
@@ -938,7 +961,6 @@ function App() {
             )}
 
           </button>
-
 
           {/* Memory indicator */}
 
@@ -971,7 +993,6 @@ function App() {
 
         </section>
 
-
         {/* Right panel */}
 
         <section className="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -989,7 +1010,6 @@ function App() {
               </p>
 
             </div>
-
 
             {post && (
               <button
@@ -1013,7 +1033,6 @@ function App() {
             )}
 
           </div>
-
 
           <div className="min-h-[480px] p-6">
 
@@ -1044,7 +1063,6 @@ function App() {
               </div>
             )}
 
-
             {/* Loading */}
 
             {loading && (
@@ -1070,7 +1088,6 @@ function App() {
               </div>
             )}
 
-
             {/* Generated post */}
 
             {post && !loading && (
@@ -1079,7 +1096,6 @@ function App() {
                 <div className="whitespace-pre-wrap text-[15px] leading-7 text-slate-700">
                   {post}
                 </div>
-
 
                 {/* Memories used */}
 
@@ -1105,7 +1121,6 @@ function App() {
                     </span>
 
                   </div>
-
 
                   <div className="max-h-48 overflow-y-auto rounded-xl bg-slate-50 p-4">
 
@@ -1152,7 +1167,6 @@ function App() {
 
           </div>
 
-
           <button
             onClick={loadMemories}
             disabled={memoryLoading}
@@ -1169,7 +1183,6 @@ function App() {
           </button>
 
         </div>
-
 
         {/* Statistics */}
 
@@ -1191,7 +1204,6 @@ function App() {
 
           </div>
 
-
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
 
             <p className="text-sm text-slate-500">
@@ -1207,7 +1219,6 @@ function App() {
             </p>
 
           </div>
-
 
           <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
 
@@ -1227,7 +1238,6 @@ function App() {
 
         </div>
 
-
         {/* Timeline */}
 
         <div className="rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -1243,7 +1253,6 @@ function App() {
             </p>
 
           </div>
-
 
           <div className="divide-y divide-slate-100">
 
@@ -1292,7 +1301,6 @@ function App() {
                     />
 
                   </div>
-
 
                   <div className="min-w-0 flex-1">
 
@@ -1362,7 +1370,6 @@ function App() {
 
         </div>
 
-
         <div className="grid gap-4 md:grid-cols-2">
 
           {/* Audience */}
@@ -1388,7 +1395,6 @@ function App() {
 
           </div>
 
-
           {/* Writing Style */}
 
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -1411,7 +1417,6 @@ function App() {
             </p>
 
           </div>
-
 
           {/* Topics */}
 
@@ -1436,7 +1441,6 @@ function App() {
 
           </div>
 
-
           {/* Profile */}
 
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -1455,17 +1459,14 @@ function App() {
             </h4>
 
             <p className="mt-2 text-sm leading-6 text-slate-500">
-
               {profile
                 ? `${profile.name || "Profile"} is connected to the agent's persistent memory.`
                 : "Import a professional profile to personalize the agent."}
-
             </p>
 
           </div>
 
         </div>
-
 
         {/* Persistent Memory */}
 
@@ -1496,13 +1497,10 @@ function App() {
 
           </div>
 
-
           <p className="mt-4 text-sm leading-6 text-slate-500">
-
             The agent can recall information from previous
             interactions and use that context when generating
             new social media content.
-
           </p>
 
         </div>
@@ -1571,15 +1569,13 @@ function App() {
 
         </div>
 
-
         {/* Navigation */}
 
-        <nav className="flex-1 space-y-1 px-3 py-6">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-6">
 
           <p className="px-3 pb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
             Workspace
           </p>
-
 
           {menuItems.map((item) => {
 
@@ -1605,8 +1601,34 @@ function App() {
             )
           })}
 
-        </nav>
+          {/* AI TOOLS */}
 
+          <div className="mt-5 border-t border-slate-100 pt-5">
+
+            <p className="px-3 pb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              AI Tools
+            </p>
+
+            <button
+              onClick={openSmartRAG}
+              className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium text-slate-500 transition hover:bg-violet-50 hover:text-violet-700"
+            >
+
+              <BookOpen size={18} />
+
+              <span className="flex-1 text-left">
+                SmartRAG
+              </span>
+
+              <span className="text-[10px] font-medium text-slate-400">
+                Open
+              </span>
+
+            </button>
+
+          </div>
+
+        </nav>
 
         {/* Bottom */}
 
@@ -1641,7 +1663,6 @@ function App() {
 
       </aside>
 
-
       {/* MAIN */}
 
       <main className="ml-64 min-h-screen">
@@ -1662,7 +1683,6 @@ function App() {
 
           </div>
 
-
           <div className="flex items-center gap-3">
 
             <div className="flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1.5 text-xs font-medium text-emerald-700">
@@ -1676,7 +1696,6 @@ function App() {
           </div>
 
         </header>
-
 
         {/* CONTENT */}
 
@@ -1693,4 +1712,3 @@ function App() {
 }
 
 export default App
-

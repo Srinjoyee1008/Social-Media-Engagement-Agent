@@ -31,6 +31,7 @@ class PostRequest(BaseModel):
 
 
 class ProfileRequest(BaseModel):
+    source: str = "LinkedIn"
     profile_url: str
     profile_text: str
 
@@ -83,6 +84,7 @@ def get_memories():
         - content style
         - engagement patterns
         - professional profile
+        - profile sources
         """
     )
 
@@ -105,11 +107,13 @@ def profile_analyze(request: ProfileRequest):
 
     profile = analyze_profile(
         profile_url=request.profile_url,
-        profile_text=request.profile_text
+        profile_text=request.profile_text,
+        source=request.source
     )
 
     return {
         "success": True,
+        "source": request.source,
         "profile": profile
     }
 
@@ -127,3 +131,4 @@ def dashboard():
         "profile": profile,
         "profile_imported": profile is not None
     }
+
