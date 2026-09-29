@@ -1,50 +1,68 @@
 # 🚀 Social Media Engagement Agent
 
-### **An AI-powered social media strategist that remembers what works.**
+### **An AI-powered social media strategist with persistent professional memory.**
 
-> **Stop creating content from scratch. Start building a social strategy that learns.**
+> **Don't just generate content. Build an AI that remembers who you are, what you create, and how your strategy evolves.**
 
-Social Media Engagement Agent is an AI-powered social media strategy assistant designed to help creators, professionals, startups, and social media teams understand their content patterns and generate more personalized content using **persistent AI memory**.
+Social Media Engagement Agent is an AI-powered social media assistant designed to create **personalized, memory-aware content** for professionals, creators, developers, startups, and personal brands.
 
-Instead of treating every interaction as a brand-new conversation, the agent remembers relevant information about the user, their audience, content preferences, writing style, topics, and previous interactions — allowing future content generation to become increasingly personalized.
+Unlike a traditional LLM application that treats every request as an isolated prompt, this system introduces a **persistent memory layer** using **Hindsight**.
+
+The agent can remember professional profile information, interests, content topics, writing preferences, target audience, and previously generated content — then recall relevant context before generating the next response.
+
+The result is a shift from:
+
+```text
+Prompt → Response
+```
+
+to:
+
+```text
+Experience → Memory → Recall → Reasoning → Response → New Memory
+```
 
 ---
 
-## ✨ Why This Project?
+# ✨ Why This Project?
 
-Managing social media isn't just about creating posts.
+Creating social media content is not simply a text-generation problem.
 
-A successful social strategy requires continuously understanding:
+A useful social media assistant needs to understand:
 
-* What topics resonate with the audience?
-* What type of content should be created?
-* How should the content be written?
-* Who is the target audience?
-* What has already been posted?
-* What patterns have worked previously?
-* How can future content become more personalized?
+* Who the creator is
+* What they work on
+* What topics they care about
+* Who their audience is
+* How they communicate
+* What content they have already created
+* Which preferences should persist across conversations
+* How future content can become more personalized
 
-Traditional AI assistants often lose this context between interactions.
+Traditional AI assistants often lose this context when a conversation ends.
 
-### Our approach is different.
-
-**Social Media Engagement Agent gives AI a persistent memory layer.**
+### Social Media Engagement Agent adds a persistent memory layer.
 
 ```text
 Traditional AI
 
-User → Prompt → AI → Response
-             ↓
-          Context Lost
+User
+  ↓
+Prompt
+  ↓
+LLM
+  ↓
+Response
+  ↓
+Context Lost
+```
 
-
+```text
 Social Memory Agent
 
 User
   ↓
-Persistent Memory
-  ↓
-Relevant Context
+Relevant Memory
   ↓
 AI Reasoning
   ↓
@@ -52,124 +70,200 @@ Personalized Content
   ↓
 New Experience
   ↓
-Memory Updated
+Persistent Memory
+  ↺
 ```
 
-The result is an assistant that can **learn from previous interactions instead of starting from zero every time.**
+The goal is not simply to generate more content.
+
+The goal is to make each future interaction **more context-aware than the previous one**.
 
 ---
 
-# 🎯 The Vision
+# 🎯 The Core Idea
 
-Imagine having a personal AI social media strategist that knows:
+Imagine an AI assistant that already understands:
 
-> "This creator prefers concise technical posts, usually talks about AI and cybersecurity, targets students and developers, avoids excessive emojis, and has previously created content around RAG and AI agents."
+```text
+Professional Identity
+        +
+Technical Interests
+        +
+Writing Style
+        +
+Target Audience
+        +
+Previous Content
+        +
+Content Preferences
+```
 
-Now imagine asking:
+Now the user asks:
 
 > **"Create a LinkedIn post about AI agents."**
 
-Instead of generating a generic AI post, the agent uses its accumulated context to create content aligned with the creator's profile and communication style.
+Instead of starting from an empty context window, the agent first recalls relevant memories and uses them to personalize the response.
 
-That's the idea behind **Social Media Engagement Agent**.
+That creates a simple but powerful loop:
+
+```text
+                    ┌──────────────┐
+                    │     User     │
+                    └──────┬───────┘
+                           ↓
+                    ┌──────────────┐
+                    │    Recall    │
+                    └──────┬───────┘
+                           ↓
+                    ┌──────────────┐
+                    │   Gemini AI  │
+                    └──────┬───────┘
+                           ↓
+                    ┌──────────────┐
+                    │   Response   │
+                    └──────┬───────┘
+                           ↓
+                    ┌──────────────┐
+                    │    Retain    │
+                    └──────┬───────┘
+                           │
+                           └──────────↺
+```
+
+### **Recall → Generate → Retain → Improve**
+
+This loop is the foundation of the application.
 
 ---
 
-# 🧠 Core Innovation — Persistent Agent Memory
+# 🧠 Persistent Agent Memory with Hindsight
 
-The core of the project is the integration of **Hindsight**, a persistent memory system for AI agents.
+The core innovation of the project is the integration of **Hindsight** as the persistent memory layer.
 
-The agent uses two fundamental operations:
+The application uses two important memory operations.
 
-### `RECALL`
+## `RECALL`
 
-Before generating content, the agent searches its memory for relevant information.
+Before generating content, the agent searches memory for information relevant to the current request.
 
 ```text
 User Request
      ↓
 Hindsight Recall
      ↓
-Relevant memories
+Relevant Memories
      ↓
 Gemini
+     ↓
+Personalized Response
 ```
 
-### `RETAIN`
+Relevant memories may include:
 
-After an interaction, useful information can be stored for future use.
+```text
+• Professional profile
+• Technical interests
+• Writing preferences
+• Target audience
+• Previous content
+• Content topics
+```
+
+---
+
+## `RETAIN`
+
+After an interaction, useful information can be stored for future personalization.
 
 ```text
 Generated Content
+       ↓
+Hindsight Retain
+       ↓
+Persistent Memory
+       ↓
+Future Recall
+```
+
+This gives the system a continuous memory cycle:
+
+```text
+┌──────────────┐
+│    Recall    │
+└──────┬───────┘
+       ↓
+┌──────────────┐
+│    Reason    │
+└──────┬───────┘
+       ↓
+┌──────────────┐
+│   Generate   │
+└──────┬───────┘
+       ↓
+┌──────────────┐
+│    Retain    │
+└──────┬───────┘
+       ↓
+   New Memory
+       │
+       └──────────────↺
+```
+
+---
+
+# 👤 Professional Profile Memory
+
+The application supports importing professional information from multiple sources.
+
+### Supported sources
+
+* LinkedIn
+* Naukri
+* Indeed
+* GitHub
+* Portfolio
+
+The current implementation uses **user-supplied profile information** rather than relying on automated platform scraping.
+
+The profile analyzer extracts structured information such as:
+
+```text
+Name
+Headline
+About
+Skills
+Experience
+Education
+Interests
+Projects
+Content Topics
+Writing Style
+Target Audience
+```
+
+The extracted information is then stored in Hindsight as persistent professional memory.
+
+### Why this matters
+
+A profile is not just onboarding information.
+
+It becomes part of the agent's long-term context.
+
+```text
+Professional Profile
+        ↓
+Profile Analysis
+        ↓
+Structured Context
         ↓
 Hindsight Retain
-        ↓
-Persistent Memory
         ↓
 Future Personalization
 ```
 
-Together:
-
-```text
-        ┌───────────────────────┐
-        │       User Input      │
-        └───────────┬───────────┘
-                    ↓
-        ┌───────────────────────┐
-        │   Hindsight Recall    │
-        │                       │
-        │ User + Audience +     │
-        │ Content Context       │
-        └───────────┬───────────┘
-                    ↓
-        ┌───────────────────────┐
-        │     Gemini AI         │
-        │                       │
-        │ Reason + Generate     │
-        └───────────┬───────────┘
-                    ↓
-        ┌───────────────────────┐
-        │ Personalized Content  │
-        └───────────┬───────────┘
-                    ↓
-        ┌───────────────────────┐
-        │   Hindsight Retain    │
-        │                       │
-        │ Store useful context  │
-        └───────────────────────┘
-```
-
-This creates a continuous:
-
-### **Recall → Generate → Retain → Improve**
-
-loop.
-
 ---
 
-# 🌟 Key Features
-
-## 👤 1. Professional Profile Memory
-
-The agent can analyze supplied professional profile information and extract useful context such as:
-
-* Name
-* Professional headline
-* About section
-* Skills
-* Experience
-* Education
-* Interests
-* Content topics
-* Writing style
-* Target audience
-
-The extracted information is stored as persistent memory.
-
----
-
-## ✍️ 2. Personalized Content Generation
+# ✍️ Personalized Content Generation
 
 Users can provide a topic such as:
 
@@ -177,143 +271,260 @@ Users can provide a topic such as:
 AI Agents
 RAG
 Generative AI
-Cybersecurity
 Machine Learning
+Cybersecurity
 Software Engineering
 ```
 
-The agent recalls relevant information before generating the post.
+The agent first recalls relevant memories and then provides them to Gemini.
 
-This allows content to reflect the user's:
-
-* Technical interests
-* Communication style
-* Audience
-* Professional background
-* Previous content context
-
----
-
-## 🧠 3. Persistent Memory
-
-Unlike a stateless content generator, the agent maintains useful information across interactions.
-
-Memory can include:
+For example:
 
 ```text
-User preferences
-        +
-Professional profile
-        +
-Content topics
-        +
-Writing style
-        +
-Target audience
-        +
-Previous generated content
+User:
+"Create a LinkedIn post about RAG."
+
+        ↓
+
+Hindsight Recall
+
+        ↓
+
+Relevant Context:
+• User works with AI/ML
+• User has experience with RAG
+• Audience includes developers
+• User prefers concise technical writing
+• Previous content involved AI projects
+
+        ↓
+
+Gemini
+
+        ↓
+
+Personalized LinkedIn Post
+
+        ↓
+
+Hindsight Retain
 ```
 
-This provides the foundation for long-term personalization.
+This makes the generated content more aligned with the user's professional identity.
 
 ---
 
-## 📊 4. Content Insights
+# 🧠 What the Agent Remembers
 
-The dashboard can surface information such as:
+The memory layer can contain multiple types of information:
+
+```text
+┌────────────────────────────┐
+│ Professional Profile       │
+├────────────────────────────┤
+│ Skills & Interests         │
+├────────────────────────────┤
+│ Writing Style              │
+├────────────────────────────┤
+│ Target Audience            │
+├────────────────────────────┤
+│ Content Topics             │
+├────────────────────────────┤
+│ Previous Generated Content │
+└────────────────────────────┘
+```
+
+This information provides the foundation for long-term personalization.
+
+---
+
+# 📊 Content Insights
+
+The dashboard can surface useful signals derived from the user's stored professional context.
+
+Examples include:
 
 * Preferred content topics
 * Writing style
 * Target audience
 * Professional interests
 * Profile-derived content signals
+* Project and skill context
 
-These insights can later become the foundation for more advanced engagement analytics.
+These insights are currently focused on personalization.
+
+They are designed to become the foundation for future **engagement intelligence and content analytics**.
 
 ---
 
-## 💻 5. Simple AI Dashboard
+# 💻 Dashboard
 
-The project provides a web interface with dedicated areas for:
+The application provides a simple web dashboard with dedicated areas for:
 
-### Dashboard
+### 🏠 Dashboard
 
-View profile and personalization information.
+View professional profile information and personalization context.
 
-### Create Post
+### ✍️ Create Post
 
-Generate personalized social media content.
+Generate personalized social media content from a topic and platform.
 
-### Memory
+### 🧠 Memory
 
 Inspect information remembered by the agent.
 
-### Insights
+### 📊 Insights
 
-Understand the user's content profile.
+Understand the user's professional and content profile.
+
+### 📚 SmartRAG
+
+Connect the broader AI workflow with the user's multimodal RAG study assistant.
 
 ---
 
 # 🏗️ System Architecture
 
 ```text
-                    ┌─────────────────┐
-                    │      User       │
-                    └────────┬────────┘
-                             │
-                             ▼
-                  ┌─────────────────────┐
-                  │ React + Tailwind UI │
-                  └──────────┬──────────┘
-                             │ REST API
-                             ▼
-                    ┌─────────────────┐
-                    │     FastAPI     │
-                    └────────┬────────┘
-                             │
-                             ▼
-                  ┌─────────────────────┐
-                  │ Social Memory Agent │
-                  └───────┬───────┬─────┘
-                          │       │
-                 Recall   │       │ Retain
-                          ▼       ▼
-                    ┌─────────────────┐
-                    │    Hindsight    │
-                    │ Persistent      │
-                    │ Agent Memory    │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │   Google Gemini  │
-                    │   AI Generation  │
-                    └────────┬────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ Personalized    │
-                    │ Social Content   │
-                    └─────────────────┘
+                         ┌───────────────┐
+                         │     User      │
+                         └───────┬───────┘
+                                 │
+                                 ▼
+                    ┌────────────────────────┐
+                    │    React + Tailwind    │
+                    │       Dashboard        │
+                    └───────────┬────────────┘
+                                │
+                              REST
+                                │
+                                ▼
+                    ┌────────────────────────┐
+                    │        FastAPI         │
+                    │        Backend         │
+                    └───────────┬────────────┘
+                                │
+                                ▼
+                    ┌────────────────────────┐
+                    │   Social Memory Agent  │
+                    └───────────┬────────────┘
+                                │
+                    ┌───────────┴───────────┐
+                    │                       │
+                 RECALL                  RETAIN
+                    │                       │
+                    └───────────┬───────────┘
+                                ▼
+                    ┌────────────────────────┐
+                    │       Hindsight        │
+                    │   Persistent Memory    │
+                    └───────────┬────────────┘
+                                │
+                                ▼
+                    ┌────────────────────────┐
+                    │      Google Gemini     │
+                    │   Reason + Generate    │
+                    └───────────┬────────────┘
+                                │
+                                ▼
+                    ┌────────────────────────┐
+                    │ Personalized Content   │
+                    └────────────────────────┘
+```
+
+---
+
+# 🔄 End-to-End Workflow
+
+## 1. Import Professional Profile
+
+```text
+Profile Source
+     ↓
+Profile Information
+     ↓
+Gemini Profile Analysis
+     ↓
+Structured Professional Context
+```
+
+## 2. Store Context
+
+```text
+Structured Context
+       ↓
+Hindsight Retain
+       ↓
+Persistent Memory
+```
+
+## 3. Request Content
+
+Example:
+
+```text
+Create a LinkedIn post about RAG.
+```
+
+## 4. Recall Relevant Memory
+
+```text
+User Request
+      ↓
+Hindsight Recall
+      ↓
+Relevant Professional Context
+```
+
+## 5. Generate
+
+Gemini receives the request together with the relevant recalled context.
+
+```text
+Topic
+ +
+Platform
+ +
+Professional Context
+ +
+Writing Preferences
+ +
+Audience
+        ↓
+      Gemini
+        ↓
+ Personalized Content
+```
+
+## 6. Retain
+
+The generated interaction can be stored for future personalization.
+
+```text
+Generated Content
+       ↓
+Hindsight Retain
+       ↓
+Future Context
 ```
 
 ---
 
 # 🛠️ Technology Stack
 
-| Layer             | Technology       |
-| ----------------- | ---------------- |
-| Frontend          | React            |
-| Build Tool        | Vite             |
-| Styling           | Tailwind CSS     |
-| Icons             | Lucide React     |
-| Backend           | Python + FastAPI |
-| Validation        | Pydantic         |
-| AI Model          | Google Gemini    |
-| Agent Memory      | Hindsight        |
-| API Communication | REST             |
-| Development       | VS Code          |
-| Version Control   | Git + GitHub     |
+| Layer           | Technology       |
+| --------------- | ---------------- |
+| Frontend        | React            |
+| Build Tool      | Vite             |
+| Styling         | Tailwind CSS     |
+| Icons           | Lucide React     |
+| Backend         | Python + FastAPI |
+| Validation      | Pydantic         |
+| AI Model        | Google Gemini    |
+| Agent Memory    | Hindsight        |
+| API             | REST             |
+| Development     | VS Code          |
+| Version Control | Git + GitHub     |
 
 ---
 
@@ -323,7 +534,6 @@ Understand the user's content profile.
 Social-Media-Engagement-Agent/
 │
 ├── backend/
-│   │
 │   ├── app/
 │   │   ├── agent/
 │   │   │   ├── agent.py
@@ -336,7 +546,6 @@ Social-Media-Engagement-Agent/
 │   └── .env.example
 │
 ├── frontend/
-│   │
 │   ├── src/
 │   │   ├── App.jsx
 │   │   ├── main.jsx
@@ -350,16 +559,33 @@ Social-Media-Engagement-Agent/
 └── package.json
 ```
 
-> **Security:** API credentials are stored locally in `.env` and are intentionally excluded from version control.
+> 🔐 **Security:** API credentials are stored locally in `.env` and excluded from version control.
 
 ---
 
 # ⚙️ Getting Started
 
+## Prerequisites
+
+Make sure the following are installed:
+
+* Python 3.x
+* Node.js
+* npm
+* Git
+
+You will also need:
+
+* A Hindsight API key
+* A Google Gemini API key
+
+---
+
 ## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Srinjoyee1008/Social-Media-Engagement-Agent.git
+
 cd Social-Media-Engagement-Agent
 ```
 
@@ -373,7 +599,7 @@ Create:
 backend/.env
 ```
 
-Use the following structure:
+Add:
 
 ```env
 HINDSIGHT_URL=https://api.hindsight.vectorize.io
@@ -383,13 +609,13 @@ HINDSIGHT_BANK_ID=social-memory-agent
 LLM_API_KEY=your_gemini_api_key
 ```
 
-**Never commit your `.env` file to GitHub.**
+### Never commit `.env`.
+
+The repository uses `.gitignore` to keep credentials outside version control.
 
 ---
 
-# 🐍 3. Backend Setup
-
-Navigate to the backend:
+# 🐍 3. Start the Backend
 
 ```bash
 cd backend
@@ -416,13 +642,13 @@ Start FastAPI:
 uvicorn app.main:app --reload
 ```
 
-The backend will be available at:
+Backend:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-API documentation:
+Interactive API documentation:
 
 ```text
 http://127.0.0.1:8000/docs
@@ -430,7 +656,7 @@ http://127.0.0.1:8000/docs
 
 ---
 
-# ⚛️ 4. Frontend Setup
+# ⚛️ 4. Start the Frontend
 
 Open another terminal:
 
@@ -444,7 +670,7 @@ Install dependencies:
 npm install
 ```
 
-Start the development server:
+Start Vite:
 
 ```bash
 npm run dev
@@ -458,76 +684,18 @@ http://localhost:5173
 
 ---
 
-# 🔄 Example Workflow
+# 🧪 API Endpoints
 
-### Step 1 — Import Profile
+| Method | Endpoint           | Purpose                       |
+| ------ | ------------------ | ----------------------------- |
+| GET    | `/`                | Application status            |
+| GET    | `/health`          | Health check                  |
+| POST   | `/generate`        | Generate personalized content |
+| GET    | `/memories`        | Retrieve relevant memories    |
+| POST   | `/profile/analyze` | Analyze and store profile     |
+| GET    | `/dashboard`       | Retrieve dashboard profile    |
 
-The user provides professional profile information.
-
-```text
-Profile
-   ↓
-Gemini Analysis
-   ↓
-Structured User Context
-```
-
-### Step 2 — Store Memory
-
-```text
-User Context
-     ↓
-Hindsight Retain
-```
-
-### Step 3 — Request Content
-
-Example:
-
-```text
-"Create a LinkedIn post about RAG"
-```
-
-### Step 4 — Recall
-
-The agent searches memory:
-
-```text
-Relevant memories:
-
-• User is interested in AI/ML
-• Audience includes developers
-• User prefers concise technical content
-• Previous content focused on RAG
-```
-
-### Step 5 — Generate
-
-Gemini receives the relevant context and creates the post.
-
-### Step 6 — Retain
-
-The interaction is stored for future personalization.
-
----
-
-# 🧪 Testing
-
-The project can be tested through:
-
-### Health Check
-
-```http
-GET /health
-```
-
-### Generate Post
-
-```http
-POST /generate
-```
-
-Example:
+### Example `/generate`
 
 ```json
 {
@@ -536,133 +704,21 @@ Example:
 }
 ```
 
-### Retrieve Memories
+### Example `/profile/analyze`
 
-```http
-GET /memories
+```json
+{
+  "source": "LinkedIn",
+  "profile_url": "https://example.com/profile",
+  "profile_text": "Professional profile information..."
+}
 ```
 
-### Analyze Profile
-
-```http
-POST /profile/analyze
-```
-
-### Dashboard Data
-
-```http
-GET /dashboard
-```
-
-The architecture is designed so that each major part of the system can be tested independently.
-
 ---
 
-# 🔮 Future Roadmap
+# 🔐 Security & Privacy
 
-Social Media Engagement Agent is designed as a foundation for a much larger AI-powered social media platform.
-
-## Phase 1 — Intelligent Content Memory
-
-* Persistent user profiles
-* Content history
-* Writing style learning
-* Audience memory
-* Topic preferences
-
-## Phase 2 — Engagement Intelligence
-
-Integrate real engagement data such as:
-
-* Likes
-* Comments
-* Shares
-* Saves
-* Reach
-* Impressions
-* Click-through rate
-
-The agent could learn which content patterns perform well for a particular account.
-
----
-
-## Phase 3 — Optimal Posting Strategy
-
-The system could analyze historical performance to identify:
-
-```text
-Best Topics
-     +
-Best Content Formats
-     +
-Best Posting Times
-     +
-Audience Behavior
-```
-
-and provide personalized recommendations.
-
----
-
-## Phase 4 — Multi-Platform Intelligence
-
-Future integrations could support platforms such as:
-
-* LinkedIn
-* X
-* Instagram
-* YouTube
-* Facebook
-
-The same memory layer could maintain a unified understanding of the user's brand while adapting content to each platform.
-
----
-
-## Phase 5 — Autonomous Social Media Copilot
-
-The long-term vision is an AI social media strategist capable of:
-
-```text
-Analyze
-   ↓
-Understand Audience
-   ↓
-Plan Content
-   ↓
-Generate Content
-   ↓
-Schedule
-   ↓
-Measure Results
-   ↓
-Learn
-   ↓
-Improve Future Strategy
-```
-
-This turns the system from a simple **AI content generator** into a continuously learning **social media intelligence platform**.
-
----
-
-# 🚀 Future Product Vision
-
-The ultimate goal is to build:
-
-> **An AI social media strategist that doesn't just create content — it learns your audience, understands your brand, remembers what you've tried, and continuously improves your content strategy.**
-
-Imagine opening the dashboard and asking:
-
-> **"What should I post this week?"**
-
-Instead of receiving generic suggestions, the agent could answer using your historical content, audience behavior, professional identity, and engagement patterns.
-
-That is where persistent agent memory becomes powerful.
-
----
-
-# 🔒 Security
-
-The project follows basic credential protection practices.
+The project follows basic credential-protection practices.
 
 ### Never commit:
 
@@ -673,35 +729,220 @@ Access tokens
 Private credentials
 ```
 
-The `.gitignore` configuration excludes environment files from version control.
+Use:
 
-Use `.env.example` to document required environment variables without exposing credentials.
+```text
+.env.example
+```
+
+to document required configuration without exposing secrets.
+
+The current profile workflow relies on **user-supplied profile information** rather than automatically scraping professional platforms.
 
 ---
 
 # ⚠️ Current Limitations
 
-The current version is an MVP focused on demonstrating persistent AI memory and personalized content generation.
+The current release is an MVP focused on demonstrating persistent agent memory and personalized content generation.
 
-Currently:
+Current limitations include:
 
-* LinkedIn profile information is supplied by the user rather than relying on automated scraping.
+* Profile information is supplied by the user rather than automatically scraped from platforms.
 * Real social-platform engagement APIs are not yet integrated.
-* Automated posting and scheduling are future features.
-* Advanced engagement prediction is part of the future roadmap.
-* The current memory layer focuses primarily on personalization rather than full-scale social analytics.
+* Automated publishing and scheduling are not implemented.
+* Advanced engagement prediction is not yet implemented.
+* Current memory functionality primarily focuses on personalization rather than complete social analytics.
+* Platform-specific optimization is currently part of the future roadmap.
 
-These limitations provide a clear path for future development.
+These limitations also define the next engineering opportunities.
+
+---
+
+# 🔮 Roadmap
+
+The project is designed to evolve from a personalized content generator into a broader **memory-driven social intelligence platform**.
+
+## Phase 1 — Professional Memory
+
+* Persistent professional profiles
+* Multi-source profile context
+* Content history
+* Writing-style memory
+* Audience memory
+* Topic preferences
+* Project and skill memory
+
+```text
+Professional Identity
+        ↓
+Persistent Memory
+        ↓
+Personalized Content
+```
+
+---
+
+## Phase 2 — Content Intelligence
+
+Future versions can analyze:
+
+* Previous posts
+* Content topics
+* Formats
+* Writing patterns
+* Audience reactions
+* Repeated themes
+* Content consistency
+
+The objective is to understand not only **what the user posts**, but also the patterns behind their content.
+
+---
+
+## Phase 3 — Engagement Intelligence
+
+Future integrations could process metrics such as:
+
+```text
+Likes
+Comments
+Shares
+Saves
+Reach
+Impressions
+Click-through Rate
+```
+
+This could allow the agent to connect:
+
+```text
+Content
+   +
+Audience Response
+   +
+Historical Performance
+        ↓
+Content Intelligence
+```
+
+---
+
+## Phase 4 — Personalized Content Strategy
+
+The system could eventually identify patterns across:
+
+```text
+Best Topics
+     +
+Content Formats
+     +
+Posting Times
+     +
+Audience Behavior
+     +
+Historical Performance
+```
+
+and turn them into personalized strategy suggestions.
+
+---
+
+## Phase 5 — Multi-Platform Intelligence
+
+Future platform integrations could include:
+
+* LinkedIn
+* X
+* Instagram
+* YouTube
+* Facebook
+
+The memory layer could maintain a unified understanding of the creator while allowing the content-generation layer to adapt to each platform.
+
+```text
+                 Professional Memory
+                         │
+          ┌──────────────┼──────────────┐
+          ↓              ↓              ↓
+       LinkedIn          X          Instagram
+          ↓              ↓              ↓
+     Platform-specific content
+```
+
+---
+
+# 🤖 Long-Term Vision — Autonomous Social Media Copilot
+
+The long-term goal is to move beyond content generation.
+
+```text
+Analyze
+   ↓
+Understand User
+   ↓
+Understand Audience
+   ↓
+Plan Content
+   ↓
+Generate
+   ↓
+Publish / Schedule
+   ↓
+Measure
+   ↓
+Learn
+   ↓
+Improve
+   ↺
+```
+
+The eventual system could act as an AI social media strategist that continuously connects:
+
+**identity + memory + content + audience + performance.**
+
+---
+
+# 📈 From Content Generator to Social Intelligence
+
+The key architectural distinction is:
+
+### Traditional AI
+
+```text
+Prompt
+  ↓
+Generate
+  ↓
+Done
+```
+
+### Social Memory Agent
+
+```text
+Understand User
+       ↓
+Recall History
+       ↓
+Generate Content
+       ↓
+Store Experience
+       ↓
+Learn Context
+       ↓
+Improve Personalization
+       ↺
+```
+
+The second architecture creates the foundation for an AI system that becomes increasingly context-aware over time.
 
 ---
 
 # 💡 Why Hindsight?
 
-A major challenge in AI agents is not simply generating an answer.
+A major challenge in AI agents is not simply generating a response.
 
-It is **remembering what matters for the next interaction.**
+It is **remembering what matters for the next interaction**.
 
-Hindsight provides the persistent memory layer that allows this project to move from:
+Hindsight provides the persistent memory layer that enables the application to move from:
 
 ```text
 Prompt → Response
@@ -723,7 +964,7 @@ Better Response
 New Experience
 ```
 
-This makes persistent memory a fundamental part of the application's architecture rather than an afterthought.
+This makes memory a core architectural component rather than an afterthought.
 
 ---
 
@@ -731,15 +972,15 @@ This makes persistent memory a fundamental part of the application's architectur
 
 ## 👩‍💻 Individual Professionals
 
-Build a consistent professional presence while maintaining a recognizable writing style.
+Maintain a consistent professional identity and writing style.
 
 ## 🚀 Startups
 
-Generate content aligned with the startup's product, audience, and brand voice.
+Generate content aligned with product positioning, audience, and brand context.
 
 ## 📱 Social Media Managers
 
-Reduce repetitive content research and personalization work.
+Reduce repetitive research and personalization work.
 
 ## 🧑‍💼 Personal Brands
 
@@ -747,67 +988,80 @@ Maintain consistent messaging across long-term content campaigns.
 
 ## 🏢 Marketing Teams
 
-Create a foundation for memory-driven content intelligence and future engagement analytics.
+Create a foundation for memory-driven content intelligence.
 
-## 🤖 AI Agents
+## 🤖 AI Agent Developers
 
 Demonstrate how persistent memory can transform a stateless LLM application into a context-aware agent.
 
 ---
 
-# 📈 From Content Generator to Social Intelligence
+# 🧩 Product Evolution
 
-The most important distinction is:
-
-```text
-                    Traditional AI
-                         │
-                         ▼
-                  Generate Content
-                         │
-                         ▼
-                       Done
-```
-
-versus:
+The project can evolve through three major layers:
 
 ```text
-                  Social Memory Agent
-                         │
-                         ▼
-                   Understand User
-                         │
-                         ▼
-                   Recall History
-                         │
-                         ▼
-                  Generate Content
-                         │
-                         ▼
-                    Store Memory
-                         │
-                         ▼
-                   Learn Over Time
-                         │
-                         ▼
-                Improve Personalization
-                         │
-                         └───────↺
+                 ┌─────────────────────┐
+                 │   Social Strategy   │
+                 │   & Intelligence    │
+                 └──────────┬──────────┘
+                            │
+                 ┌──────────▼──────────┐
+                 │  Content & Audience │
+                 │     Intelligence    │
+                 └──────────┬──────────┘
+                            │
+                 ┌──────────▼──────────┐
+                 │ Persistent Memory   │
+                 │      Layer          │
+                 └─────────────────────┘
 ```
 
-The second architecture creates the foundation for a **continuously improving social media assistant**.
+### Today
+
+**Memory-aware content generation**
+
+### Next
+
+**Content + engagement intelligence**
+
+### Eventually
+
+**Continuous AI social strategy**
 
 ---
 
 # 🏆 Project Status
 
-**Current Status:** Functional MVP / Hackathon Project
+**Status:** Functional MVP
 
-**Focus:** Persistent AI memory + personalized social content generation
+**Primary Focus:** Persistent AI memory + personalized social content generation
 
-**Architecture:** React + FastAPI + Gemini + Hindsight
+**Architecture:**
 
-**Future Direction:** Social media intelligence, engagement analytics, scheduling, multi-platform support, and autonomous content strategy.
+```text
+React
+  +
+FastAPI
+  +
+Gemini
+  +
+Hindsight
+```
+
+**Current Direction:**
+
+```text
+Personalized Content
+        ↓
+Professional Memory
+        ↓
+Content Intelligence
+        ↓
+Engagement Intelligence
+        ↓
+Social Media Copilot
+```
 
 ---
 
@@ -818,7 +1072,9 @@ Built as a collaborative project with responsibilities across:
 * AI & Hindsight integration
 * Backend development
 * Frontend development
-* Product, documentation & demonstration
+* Product design
+* Documentation
+* Demonstration
 
 ---
 
@@ -830,27 +1086,50 @@ This project can be released under an appropriate open-source license depending 
 
 # ⭐ Support the Project
 
-If you find this project interesting:
+If you find the project useful:
 
-⭐ Star the repository
-🍴 Fork the project
-💡 Open an issue with ideas
-🚀 Build on top of it
-
----
-
-## 🚀 The Bigger Idea
-
-**Social media is not just about posting more.**
-
-It's about understanding what you stand for, who you're speaking to, what your audience responds to, and how your strategy evolves over time.
-
-**Social Media Engagement Agent brings persistent memory to that process.**
-
-### **Don't just generate the next post.**
-
-### **Remember what happened before it. Learn from it. And make the next one smarter.**
+* ⭐ Star the repository
+* 🍴 Fork the project
+* 💡 Open an issue
+* 🚀 Build on top of it
+* 📢 Share the project
 
 ---
 
-**Built with ❤️ using React, FastAPI, Gemini, and Hindsight.**
+# 🚀 The Bigger Idea
+
+Social media is not only about producing more posts.
+
+It is about understanding:
+
+```text
+Who you are
+     +
+What you create
+     +
+Who you speak to
+     +
+What you've already tried
+     +
+What your audience responds to
+     +
+How your strategy evolves
+```
+
+**Social Media Engagement Agent brings persistent AI memory into that process.**
+
+> ### **Don't just generate the next post.**
+>
+> ### **Remember what happened before it.**
+>
+> ### **Learn from it.**
+>
+> ### **Make the next one smarter.**
+
+---
+
+## 🧠 Built With
+
+**React · FastAPI · Google Gemini · Hindsight · Tailwind CSS · Python · Git**
+
+**More than a content generator — a foundation for an AI social media strategist with memory.**
