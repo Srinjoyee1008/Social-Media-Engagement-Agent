@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,6 +14,10 @@ app = FastAPI(
 )
 
 
+# ============================================================
+# CORS
+# ============================================================
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -25,6 +30,10 @@ app.add_middleware(
 )
 
 
+# ============================================================
+# REQUEST MODELS
+# ============================================================
+
 class PostRequest(BaseModel):
     topic: str
     platform: str = "LinkedIn"
@@ -35,6 +44,10 @@ class ProfileRequest(BaseModel):
     profile_url: str
     profile_text: str
 
+
+# ============================================================
+# BASIC ROUTES
+# ============================================================
 
 @app.get("/")
 def home():
@@ -51,14 +64,14 @@ def health():
     }
 
 
-# --------------------------------------------------
+# ============================================================
 # SOCIAL POST GENERATION
-# --------------------------------------------------
+# ============================================================
 
 @app.post("/generate")
-def generate_post(request: PostRequest):
+async def generate_post(request: PostRequest):
 
-    result = generate_social_post(
+    result = await generate_social_post(
         topic=request.topic,
         platform=request.platform
     )
@@ -66,18 +79,19 @@ def generate_post(request: PostRequest):
     return result
 
 
-# --------------------------------------------------
+# ============================================================
 # HINDSIGHT MEMORIES
-# --------------------------------------------------
+# ============================================================
 
 @app.get("/memories")
-def get_memories():
+async def get_memories():
 
     from app.agent.memory import recall
 
-    memories = recall(
+    memories = await recall(
         """
         Retrieve all useful memories about:
+
         - user preferences
         - audience preferences
         - previous social media posts
@@ -98,14 +112,14 @@ def get_memories():
     }
 
 
-# --------------------------------------------------
+# ============================================================
 # PROFILE IMPORT
-# --------------------------------------------------
+# ============================================================
 
 @app.post("/profile/analyze")
-def profile_analyze(request: ProfileRequest):
+async def profile_analyze(request: ProfileRequest):
 
-    profile = analyze_profile(
+    profile = await analyze_profile(
         profile_url=request.profile_url,
         profile_text=request.profile_text,
         source=request.source
@@ -118,14 +132,14 @@ def profile_analyze(request: ProfileRequest):
     }
 
 
-# --------------------------------------------------
+# ============================================================
 # DASHBOARD PROFILE
-# --------------------------------------------------
+# ============================================================
 
 @app.get("/dashboard")
-def dashboard():
+async def dashboard():
 
-    profile = get_profile()
+    profile = await get_profile()
 
     return {
         "profile": profile,
